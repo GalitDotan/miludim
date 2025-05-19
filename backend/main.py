@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 
+from api.course import courses
+from api.lecture import lectures
+from api.video import videos
+
 app = FastAPI()
 
 
@@ -8,9 +12,9 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
+app.include_router(courses, prefix="/courses")
+app.include_router(lectures, prefix="/lectures")
+app.include_router(videos, prefix="/videos")
 
 
 # For development run with `python main.py`
