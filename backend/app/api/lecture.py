@@ -21,7 +21,7 @@ def get_lecture_id_list():
 
 @lectures.get("/{lecture_id}", response_model=Lecture)
 def get_lecture_info(lecture_id: UUID):
-    """Get the info of a specific course"""
+    """Get the info of a specific lecture"""
     lecture_data = mock_lectures.get(str(lecture_id))
     if not lecture_data:
         raise HTTPException(status_code=404, detail="Lecture not found")

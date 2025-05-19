@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from api import Course, Lecture, courses, lectures
+from api import courses, lectures, videos
 #from api.video import videos
 
 app = FastAPI()
@@ -13,7 +13,7 @@ def read_root():
 
 app.include_router(courses, prefix="/courses")
 app.include_router(lectures, prefix="/lectures")
-#app.include_router(videos, prefix="/videos")
+app.include_router(videos, prefix="/videos")
 
 
 # For development run with `python main.py`
