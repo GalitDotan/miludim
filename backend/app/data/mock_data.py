@@ -20,6 +20,7 @@ mock_courses = {
 mock_lectures = {
     "024a4eb9-94f5-47da-b699-da4d2b830292": {
         "name": "Lecture 1 - Economy",
+        "description": "Money or something, i dont know", 
         "videos": [
             "42940327-970d-4d7b-b154-12f54f941a6b",
             "4c65cb3c-fc52-4aee-8847-fbd231d6fe26",
@@ -27,12 +28,14 @@ mock_lectures = {
     },
     "d09f4363-1330-40f0-a52b-fad66d4cfa61": {
         "name": "Lecture 1 - Computer Science",
+        "description": "A very funny course", 
         "videos": [
             "9a8db790-8690-4e49-8c84-c70ac399b423",
         ],
     },
     "9d1ac717-c2f1-4f3a-ba8f-2c7f36e97f0e": {
         "name": "Lecture 2 - Economy",
+        "description": "More money", 
         "videos": [
             "147df858-8116-4de6-81cb-9740bb32a62b",
             "aac32dfa-d5f5-4e32-8683-01a8659e4f63",
