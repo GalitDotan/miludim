@@ -13,6 +13,12 @@ class Video(BaseModel):
 
 videos = APIRouter()
 
+def get_resources_dir_path():
+    current_dir = os.path.dirname(__file__)
+    project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
+    return  os.path.join(project_root, 'resources')
+    
+
 @videos.get("/{video_id}", response_model=Video)
 def get_video_info(video_id: UUID):
     """Get the info of a specific video"""
@@ -27,29 +33,21 @@ def get_video_info(video_id: UUID):
     
 @videos.get("/{video_id}/transcript")
 def get_video_transcript(video_id: UUID):
-    """get the transcript of the video
-    """
-    return "transcript of the video"
+    file_path = os.path.join(get_resources_dir_path(), 'Calculus2_09.txt')
+    return FileResponse(file_path, media_type="text/txt")
 
 
 @videos.get("/{video_id}/subtitles")
 def get_video_subtitles(video_id: UUID):
-    """get the subtitles of the video
-    """
-    return "subtitles of the video"
+    file_path = os.path.join(get_resources_dir_path(), 'Calculus2_09.srt')
+    return FileResponse(file_path, media_type="text/srt")
 
 
 @videos.get("/{video_id}/download")
 def get_video_download(video_id: UUID):
-    current_dir = os.path.dirname(__file__)
-    project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
-    resources_path = os.path.join(project_root, 'resources')
-    file_path = os.path.join(resources_path, 'Calculus2_09.mp4')
-    
+    file_path = os.path.join(get_resources_dir_path(), 'Calculus2_09.mp4')
     return FileResponse(file_path, media_type="video/mp4")
 
 @videos.get("/{video_id}/summary")
 def get_video_download(video_id: UUID):
-    """get the info of the lecture
-    """
-    return "file of the video"
+    return "summary of the video"
