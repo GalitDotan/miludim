@@ -13,7 +13,7 @@ def read_root():
 
 app.include_router(courses, prefix="/courses", tags=["courses"])
 app.include_router(lectures, prefix="/lectures", tags=["lectures"])
-app.include_router(videos, prefix="/videos", tags=["videos"])”
+app.include_router(videos, prefix="/videos", tags=["videos"])
 
 
 # For development run with `python main.py`
