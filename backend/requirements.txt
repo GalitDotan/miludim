@@ -1,4 +1,6 @@
-fastapi[standard]
-uvicorn
-colorama
-pydantic
+fastapi[standard]~=0.115.12
+uvicorn~=0.34.2
+colorama~=0.4.6
+pydantic~=2.11.4
+openai~=1.79.0
+python-dotenv~=1.1.0
