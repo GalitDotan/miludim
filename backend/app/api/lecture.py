@@ -12,12 +12,28 @@ class Lecture(BaseModel):
     description: str
     related_video_id_list: List[UUID] = []
 
+    @classmethod
+    def from_data(cls, id, data):
+        return Lecture(
+            id=id,
+            name=data["name"],
+            description=data["description"],
+            related_video_id_list=[video_id for video_id in data["videos"]],
+        )
+
 lectures = APIRouter()
 
-@lectures.get("/", response_model=List[UUID])
-def get_lecture_id_list():
-    """Get the list of all lecture IDs"""
-    return [UUID(course_id) for course_id in mock_courses.keys()]
+@lectures.get("/", response_model=List[Lecture])
+def get_course_lectures(q: UUID):
+    """Get the info of all the lectures of a course"""
+    course = mock_courses.get(str(q))
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+    lecture_ids = course["lectures"]
+    return [
+        Lecture.from_data(lecture_id, mock_lectures[lecture_id])
+        for lecture_id in lecture_ids if str(lecture_id) in mock_lectures
+    ]
 
 @lectures.get("/{lecture_id}", response_model=Lecture)
 def get_lecture_info(lecture_id: UUID):

@@ -2,7 +2,7 @@ import os
 from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 from uuid import UUID
-from data.mock_data import mock_videos
+from data.mock_data import mock_videos, mock_lectures
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
@@ -10,6 +10,18 @@ class Video(BaseModel):
     id: UUID
     name: str
     filename: str
+
+
+class VideoInfo(BaseModel):
+    id: UUID
+    name: str
+
+    @classmethod
+    def from_data(cls, id, data):
+        return VideoInfo(
+            id=id,
+            name=data["name"],
+        )
 
 videos = APIRouter()
 
@@ -19,16 +31,28 @@ def get_resources_dir_path():
     return  os.path.join(project_root, 'resources')
     
 
-@videos.get("/{video_id}", response_model=Video)
+@videos.get("/", response_model=list[VideoInfo])
+def get_lecture_videos(q: UUID):
+    """Get the info of all the videos of a lecture"""
+    lecture = mock_lectures.get(str(q))
+    if not lecture:
+        raise HTTPException(status_code=404, detail="Lecture not found")
+    video_ids = lecture["videos"]
+    return [
+        VideoInfo.from_data(video_id, mock_videos[video_id])
+        for video_id in video_ids if str(video_id) in mock_videos
+    ]
+
+
+@videos.get("/{video_id}", response_model=VideoInfo)
 def get_video_info(video_id: UUID):
     """Get the info of a specific video"""
     video_data = mock_videos.get(str(video_id))
     if not video_data:
         raise HTTPException(status_code=404, detail="Video not found")
-    return Video(
+    return VideoInfo(
         id=video_id,
         name=video_data["name"],
-        filename=video_data["filename"]
     )
     
 @videos.get("/{video_id}/transcript")
