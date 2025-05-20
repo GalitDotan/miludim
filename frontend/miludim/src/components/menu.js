@@ -4,9 +4,11 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import axios from "axios";
 
 export default function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -14,7 +16,13 @@ export default function PositionedMenu() {
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    //setAnchorEl(null);
+    axios
+      .get(
+        "http://127.0.0.1:8000/videos/024a4eb9-94f5-47da-b699-da4d2b830292/summary"
+      )
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error("Error:", error));
   };
 
   return (
