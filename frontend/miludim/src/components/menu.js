@@ -16,10 +16,40 @@ export default function PositionedMenu() {
   };
 
   const handleClose = () => {
-    //setAnchorEl(null);
+    setAnchorEl(null);
+  };
+
+  const getSummary = () => {
     axios
       .get(
         "http://127.0.0.1:8000/videos/024a4eb9-94f5-47da-b699-da4d2b830292/summary"
+      )
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error("Error:", error));
+  };
+
+  const getSlides = () => {
+    axios
+      .get(
+        "http://127.0.0.1:8000/videos/024a4eb9-94f5-47da-b699-da4d2b830292/slides"
+      )
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error("Error:", error));
+  };
+
+  const getDownload = () => {
+    axios
+      .get(
+        "http://127.0.0.1:8000/videos/024a4eb9-94f5-47da-b699-da4d2b830292/download"
+      )
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error("Error:", error));
+  };
+
+  const getQuestions = () => {
+    axios
+      .get(
+        "http://127.0.0.1:8000/videos/024a4eb9-94f5-47da-b699-da4d2b830292/questions"
       )
       .then((response) => console.log(response.data))
       .catch((error) => console.error("Error:", error));
@@ -51,10 +81,10 @@ export default function PositionedMenu() {
           horizontal: "left",
         }}
       >
-        <MenuItem onClick={handleClose}>הורדת סיכום</MenuItem>
-        <MenuItem onClick={handleClose}>הורדת מצגת</MenuItem>
-        <MenuItem onClick={handleClose}>הורדת הסרטון</MenuItem>
-        <MenuItem onClick={handleClose}>מעבר לשאלות על השיעור</MenuItem>
+        <MenuItem onClick={getSummary}>הורדת סיכום</MenuItem>
+        <MenuItem onClick={getSlides}>הורדת מצגת</MenuItem>
+        <MenuItem onClick={getDownload}>הורדת הסרטון</MenuItem>
+        <MenuItem onClick={getQuestions}>מעבר לשאלות על השיעור</MenuItem>
       </Menu>
     </div>
   );

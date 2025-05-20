@@ -49,5 +49,13 @@ def get_video_download(video_id: UUID):
     return FileResponse(file_path, media_type="video/mp4")
 
 @videos.get("/{video_id}/summary")
-def get_video_download(video_id: UUID):
+def get_video_summary(video_id: UUID):
     return "summary of the video"
+
+@videos.get("/{video_id}/slides")
+def get_video_slides(video_id: UUID):
+    return "slides of the video"
+
+@videos.get("/{video_id}/questions")
+def get_video_questions(video_id: UUID):
+    return "questions about the video"
