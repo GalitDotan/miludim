@@ -2,12 +2,14 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import PositionedMenu from "../components/menu.js";
 import Transcript from "../components/transcript.js";
+import { VideoComponent } from '@/components/Video';
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <PositionedMenu />
+        <VideoComponent />
         <Image
           className={styles.logo}
           src="/next.svg"
