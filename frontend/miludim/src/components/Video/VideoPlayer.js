@@ -15,7 +15,9 @@ function fetchVideo(video_id) {
 );
 }
 
-export function VideoPlayer() {
+export function VideoPlayer(props) {
+    const onTimeUpdate = props.onVideoTimeUpdate
+
   const [videoSrc, setVideoSrc] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,5 +42,5 @@ export function VideoPlayer() {
   if (isLoading) return <p>Loading video...</p>;
   if (error) return <p>{error}</p>;
 
-  return <video controls width="600" src={videoSrc}></video>;
+  return <video controls width="600" src={videoSrc} onTimeUpdate={(e) => {onTimeUpdate(e.target.currentTime); console.log(e.target.currentTime);}}></video>;
 }

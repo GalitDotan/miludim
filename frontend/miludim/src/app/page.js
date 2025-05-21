@@ -1,15 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
 import PositionedMenu from "../components/menu.js";
 import Transcript from "../components/transcript.js";
 import { VideoComponent } from '@/components/Video';
+import { useState } from "react";
+
 
 export default function Home() {
+  const [currentVideoTime, setCurrentVideoTime] = useState(-1);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <PositionedMenu />
-        <VideoComponent />
+        <VideoComponent onVideoTimeUpdate={setCurrentVideoTime}/>
         <Image
           className={styles.logo}
           src="/next.svg"
