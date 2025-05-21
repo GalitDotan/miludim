@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,7 +9,7 @@ import axios from "axios";
 
 export default function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const { videoId } = useParams();
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -21,37 +22,30 @@ export default function PositionedMenu() {
 
   const getSummary = () => {
     axios
-      .get(
-        "http://127.0.0.1:8000/videos/024a4eb9-94f5-47da-b699-da4d2b830292/summary"
-      )
+      .get(`http://127.0.0.1:8000/videos/${videoId}/summary`)
       .then((response) => console.log(response.data))
       .catch((error) => console.error("Error:", error));
   };
 
   const getSlides = () => {
     axios
-      .get(
-        "http://127.0.0.1:8000/videos/024a4eb9-94f5-47da-b699-da4d2b830292/slides"
-      )
+      .get(`http://127.0.0.1:8000/videos/${videoId}/slides`)
       .then((response) => console.log(response.data))
       .catch((error) => console.error("Error:", error));
   };
 
   const getDownload = () => {
     axios
-      .get(
-        "http://127.0.0.1:8000/videos/024a4eb9-94f5-47da-b699-da4d2b830292/download"
-      )
+      .get(`http://127.0.0.1:8000/videos/${videoId}/download`)
       .then((response) => console.log(response.data))
       .catch((error) => console.error("Error:", error));
   };
 
   const getQuestions = () => {
     axios
-      .get(
-        "http://127.0.0.1:8000/videos/024a4eb9-94f5-47da-b699-da4d2b830292/questions"
-      )
+      .get(`http://127.0.0.1:8000/videos/${videoId}/questions`)
       .then((response) => console.log(response.data))
+      .then(console.log(videoId))
       .catch((error) => console.error("Error:", error));
   };
 
