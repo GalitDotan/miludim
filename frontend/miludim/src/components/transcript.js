@@ -8,10 +8,24 @@ import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 
 function prettifyText(text) {
+  const superscriptMap = {
+    '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴',
+    '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', 'k': 'ᵏ'
+  };
+
+  const subscriptMap = {
+    '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄',
+    '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉',
+    'n': 'ₙ', 'k': 'ₖ'
+  };
+
+  const toSuperscript = str => [...str].map(c => superscriptMap[c] || c).join('');
+  const toSubscript = str => [...str].map(c => subscriptMap[c] || c).join('');
+
   return text
     .replace(/\bEpsilon\b/g, 'ε')
-    .replace(/\bR_k\b/g, 'ℝᵏ')
-    .replace(/\bx_1_n\b/g, 'x₁ₙ')
+    .replace(/\bR_([0-9k]+)\b/gi, (_, n) => 'ℝ' + toSuperscript(n))
+    .replace(/\bx_([0-9]+)_n\b/g, (_, i) => 'x' + toSubscript(i) + subscriptMap['n'])
     .replace(/\bx_n\b/g, 'xₙ')
     .replace(/\bl_k\b/g, '𝑙ₖ')
     .replace(/\bl_n\b/g, '𝑙ₙ')
