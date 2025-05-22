@@ -5,12 +5,12 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
   ListItemButton,
   Button,
   Box,
   Slide,
-  Paper
+  Paper,
+  Stack
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
@@ -62,7 +62,6 @@ export default function Videos() {
   }, [lectureId]);
 
   const handleDescriptionClick = (video) => {
-    console.log(video);
     setSelectedVideo(video);
   };
 
@@ -77,14 +76,16 @@ export default function Videos() {
           <ListItem key={video.id} disablePadding>
             <ListItemButton onClick={() => navigate(`/videos/${video.id}`)}>
               <ListItemText primary={video.name} />
-              <Button onClick={(e) => { e.stopPropagation(); handleDescriptionClick(video); }}>
-                <InfoIcon />
-              </Button>
-              {watchedStatus[video.id] && (
-                <ListItemIcon sx={{ minWidth: 'unset', marginLeft: 1 }}>
-                  <CheckCircleIcon color="success" />
-                </ListItemIcon>
-              )}
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Button onClick={(e) => { e.stopPropagation(); handleDescriptionClick(video); }}>
+                  <InfoIcon />
+                </Button>
+                <Box sx={{ width: 24, display: 'flex', justifyContent: 'center' }}>
+                  {watchedStatus[video.id] && (
+                    <CheckCircleIcon color="success" />
+                  )}
+                </Box>
+              </Stack>
             </ListItemButton>
           </ListItem>
         ))}
