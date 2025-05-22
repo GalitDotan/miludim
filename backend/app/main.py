@@ -2,10 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from api import courses, lectures, videos
-#from api.video import users
+from api.user import users
+
+# from api.video import users
 
 app = FastAPI()
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,6 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
@@ -22,13 +24,14 @@ def read_root():
 
 app.include_router(courses, prefix="/courses", tags=["courses"])
 app.include_router(lectures, prefix="/lectures", tags=["lectures"])
-app.include_router(videos, prefix="/users", tags=["users"])
-
+app.include_router(videos, prefix="/videos", tags=["videos"])
+app.include_router(users, prefix="/users", tags=["users"])
 
 # For development run with `python main.py`
 if __name__ == "__main__":
     import uvicorn
     import colorama
+
     colorama.init()
 
     uvicorn.run("main:app", reload=True)
