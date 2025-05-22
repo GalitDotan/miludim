@@ -1,34 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, useNavigate, useParams} from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   Typography,
   List,
   ListItem,
   ListItemText,
+  ListItemIcon,
   ListItemButton,
   Button,
   Box
 } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import axios from 'axios';
 
 export default function Videos() {
-  const { courseId, lectureId } = useParams();
+  const { lectureId } = useParams();
   const [videos, setVideos] = useState([]);
+  const [watchedStatus, setWatchedStatus] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/videos/?q=${lectureId}`).then((res) => {
-      if (Array.isArray(res.data)) {
-        setVideos(res.data);
-      } else {
-        console.error('Expected array but got:', res.data);
+    axios.get(`http://localhost:8000/videos/?q=${lectureId}`)
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setVideos(res.data);
+        } else {
+          console.error('Expected video array but got:', res.data);
+          setVideos([]);
+        }
+      })
+      .catch(err => {
+        console.error('Failed to fetch videos:', err);
         setVideos([]);
-      }
-    }).catch(err => {
-      console.error('Failed to fetch videos:', err);
-      setVideos([]);
-    });
-  }, [courseId, lectureId]);
+      });
+
+    axios.get('http://localhost:8000/users/4c65cb3c-dc52-4aee-8847-fbd231d6fe26')
+      .then((res) => {
+        if (res.data && Array.isArray(res.data.courses)) {
+          const watchedMap = {};
+          res.data.courses.forEach(course => {
+            course.lectures_history.forEach(lecture => {
+              if (lecture.lecture_id === lectureId) {
+                lecture.videos.forEach(video => {
+                  watchedMap[video.video_id] = video.watched;
+                });
+              }
+            });
+          });
+          setWatchedStatus(watchedMap);
+        } else {
+          console.error('Unexpected user structure:', res.data);
+        }
+      })
+      .catch(err => {
+        console.error('Failed to fetch user data:', err);
+      });
+  }, [lectureId]);
 
   return (
     <Box>
@@ -40,7 +67,14 @@ export default function Videos() {
         {videos.map((video) => (
           <ListItem key={video.id} disablePadding>
             <ListItemButton onClick={() => navigate(`/videos/${video.id}`)}>
-              <ListItemText primary={video.name} />
+              <ListItemText
+                primary={video.name}
+              />
+              {watchedStatus[video.id] && (
+                <ListItemIcon sx={{ minWidth: 'unset', marginLeft: 1 }}>
+                  <CheckCircleIcon color="success" />
+                </ListItemIcon>
+              )}
             </ListItemButton>
           </ListItem>
         ))}

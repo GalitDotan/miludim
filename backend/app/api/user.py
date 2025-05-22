@@ -58,17 +58,18 @@ def get_user_info(user_id: UUID):
     return User(
         id=user_id,
         name=user["name"],
-        courses=[CourseHistory(
-            course_id=course_id,
-            lectures_history=[
-                LectureHistory(
-                    lecture_id=lecture_id,
-                    videos=[VideoHistory(video_id=video_id, stopped_time=video["stopped_time"], watched=False) for
-                            video_id, video
-                            in lecture_history["videos"].items()
-                            ],
-                    watched=False,
-                ) for lecture_id, lecture_history in course_data["lectures"].items()
-            ]
-        ) for course_id, course_data in user["courses"].items()],
+        courses=[
+            CourseHistory(
+                course_id=course_id,
+                lectures_history=[
+                    LectureHistory(
+                        lecture_id=lecture_id,
+                        videos=[
+                            VideoHistory(video_id=video_id, stopped_time=video["stopped_time"], watched=video["watched"]) for
+                            video_id, video in lecture_history["videos"].items()
+                        ],
+                        watched=False,
+                    ) for lecture_id, lecture_history in course_data["lectures"].items()
+                ]
+            ) for course_id, course_data in user["courses"].items()],
     )

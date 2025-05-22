@@ -69,17 +69,17 @@ mock_users = {
     "4c65cb3c-dc52-4aee-8847-fbd231d6fe26": {
         "name": "Lia",
         "courses": {
-            "8f3b4ffe-3b05-4fdf-8168-254294b96f44": {
+            "e71fff0a-b2a4-4616-8580-068a286d933b": {
                 "lectures": {
-                    "d09f4363-1330-40f0-a52b-fad66d4cfa61": {
+                    "024a4eb9-94f5-47da-b699-da4d2b830292": {
                         "videos": {
                             "42940327-970d-4d7b-b154-12f54f941a6b": {
                                 "stopped_time": 0,
-                                "watched": False,
+                                "watched": True,
                             },
                             "4c65cb3c-fc52-4aee-8847-fbd231d6fe26": {
                                 "stopped_time": 5,
-                                "watched": False,
+                                "watched": True,
                             },
                         }
                     }
