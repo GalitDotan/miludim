@@ -1,10 +1,12 @@
+from typing import List
+from uuid import UUID
+
 from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
-from uuid import UUID
+from pydantic import BaseModel
+
 from data.mock_data import mock_lectures, mock_courses
 
-from pydantic import BaseModel
-from typing import List
 
 class Lecture(BaseModel):
     id: UUID
@@ -13,15 +15,17 @@ class Lecture(BaseModel):
     related_video_id_list: List[UUID] = []
 
     @classmethod
-    def from_data(cls, id, data):
+    def from_data(cls, id: UUID, data: dict):
         return Lecture(
             id=id,
             name=data["name"],
             description=data["description"],
-            related_video_id_list=[video_id for video_id in data["videos"]],
+            related_video_id_list=[video_id for video_id in data["users"]],
         )
 
+
 lectures = APIRouter()
+
 
 @lectures.get("/", response_model=List[Lecture])
 def get_course_lectures(q: UUID):
@@ -35,6 +39,7 @@ def get_course_lectures(q: UUID):
         for lecture_id in lecture_ids if str(lecture_id) in mock_lectures
     ]
 
+
 @lectures.get("/{lecture_id}", response_model=Lecture)
 def get_lecture_info(lecture_id: UUID):
     """Get the info of a specific lecture"""
@@ -45,5 +50,5 @@ def get_lecture_info(lecture_id: UUID):
         id=lecture_id,
         name=lecture_data["name"],
         description=lecture_data["description"],
-        related_video_id_list=[UUID(video_id) for video_id in lecture_data["videos"]],
+        related_video_id_list=[UUID(video_id) for video_id in lecture_data["users"]],
     )
