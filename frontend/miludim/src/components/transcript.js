@@ -121,4 +121,6 @@ const transcript_container = {
   border: "1px solid #ccc",
   padding: "1rem",
   fontSize: "20px",
+  direction: "rtl", // Hebrew-friendly
+  textAlign: "right", // Default RTL alignment
 };
