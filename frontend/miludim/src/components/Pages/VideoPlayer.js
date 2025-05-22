@@ -36,7 +36,7 @@ export default function VideoPlayer() {
       <Typography variant="h5">{video.name}</Typography>
       <VideoComponent onVideoTimeUpdate={setCurrentVideoTime}/>
       <PositionedMenu />
-      <Transcript />
+      <Transcript videoTime={currentVideoTime}/>
     </Box>
   );
 }
