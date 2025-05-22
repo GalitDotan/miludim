@@ -24,14 +24,7 @@ import styles from "./page.module.css";
 import { VideoComponent } from '@/components/Video';
 import PositionedMenu from "../components/menu.js";
 import Transcript from "../components/transcript.js";
-
-function Home() {
-  return <Typography variant="h4">Home</Typography>;
-}
-
-function About() {
-  return <Typography variant="h4">About</Typography>;
-}
+import {Home, About} from '@/components/Pages'
 
 function Courses() {
   const [courses, setCourses] = useState([]);
