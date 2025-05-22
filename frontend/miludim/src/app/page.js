@@ -1,7 +1,6 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -14,163 +13,17 @@ import {
   ListItemButton,
   CssBaseline,
   Box,
-  Container,
-  Button,
+  Container
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import Image from "next/image";
-import styles from "./page.module.css";
-import { VideoComponent } from '@/components/Video';
-import PositionedMenu from "../components/menu.js";
-import Transcript from "../components/transcript.js";
-import {Home, About} from '@/components/Pages'
-
-function Courses() {
-  const [courses, setCourses] = useState([]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    axios.get('http://localhost:8000/courses/all').then((res) => {
-      if (Array.isArray(res.data)) {
-        setCourses(res.data);
-      } else {
-        console.error('Expected array but got:', res.data);
-        setCourses([]);
-      }
-    }).catch(err => {
-      console.error('Failed to fetch courses:', err);
-      setCourses([]);
-    });
-  }, []);
-
-  return (
-    <Box>
-      <Typography variant="h5" gutterBottom>Courses</Typography>
-      <List>
-        {courses.map((course) => (
-          <ListItem key={course.id} disablePadding>
-            <ListItemButton onClick={() => navigate(`/courses/${course.id}`)}>
-              <ListItemText primary={course.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-}
-
-function Lectures() {
-  const { courseId } = useParams();
-  const [lectures, setLectures] = useState([]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    axios.get(`http://localhost:8000/lectures/?q=${courseId}`).then((res) => {
-      if (Array.isArray(res.data)) {
-        setLectures(res.data);
-      } else {
-        console.error('Expected array but got:', res.data);
-        setLectures([]);
-      }
-    }).catch(err => {
-      console.error('Failed to fetch lectures:', err);
-      setLectures([]);
-    });
-  }, [courseId]);
-
-  return (
-    <Box>
-      <Button variant="outlined" onClick={() => navigate(-1)} sx={{ mb: 2 }}>
-        Back
-      </Button>
-      <Typography variant="h5" gutterBottom>Lectures</Typography>
-      <List>
-        {lectures.map((lecture) => (
-          <ListItem key={lecture.id} disablePadding>
-            <ListItemButton onClick={() => navigate(`/lectures/${lecture.id}`)}>
-              <ListItemText primary={lecture.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-}
-
-function Videos() {
-  const { courseId, lectureId } = useParams();
-  const [videos, setVideos] = useState([]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    axios.get(`http://localhost:8000/videos/?q=${lectureId}`).then((res) => {
-      if (Array.isArray(res.data)) {
-        setVideos(res.data);
-      } else {
-        console.error('Expected array but got:', res.data);
-        setVideos([]);
-      }
-    }).catch(err => {
-      console.error('Failed to fetch videos:', err);
-      setVideos([]);
-    });
-  }, [courseId, lectureId]);
-
-  return (
-    <Box>
-      <Button variant="outlined" onClick={() => navigate(-1)} sx={{ mb: 2 }}>
-        Back
-      </Button>
-      <Typography variant="h5" gutterBottom>Videos</Typography>
-      <List>
-        {videos.map((video) => (
-          <ListItem key={video.id} disablePadding>
-            <ListItemButton onClick={() => navigate(`/videos/${video.id}`)}>
-              <ListItemText primary={video.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-}
-
-function VideoPlayer() {
-  const { videoId } = useParams();
-  const [video, setVideo] = useState(null);
-  const [currentVideoTime, setCurrentVideoTime] = useState(-1);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    axios.get(`http://localhost:8000/videos/${videoId}`).then((res) => {
-      setVideo(res.data);
-    }).catch(err => {
-      console.error('Failed to fetch video:', err);
-      setVideo(null);
-    });
-  }, [videoId]);
-
-  if (!video) return <Typography>Loading...</Typography>;
-
-  return (
-    <Box>
-      <Button variant="outlined" onClick={() => navigate(-1)} sx={{ mb: 2 }}>
-        Back
-      </Button>
-      <Typography variant="h5">{video.name}</Typography>
-      <VideoComponent onVideoTimeUpdate={setCurrentVideoTime}/>
-      <PositionedMenu />
-      <Transcript />
-    </Box>
-  );
-}
+import {Home, About, Courses, Lectures, Videos, VideoPlayer} from '@/components/Pages'
 
 export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <Router>
+    <BrowserRouter>
       <CssBaseline />
       <AppBar position="fixed">
         <Toolbar>
@@ -217,6 +70,6 @@ export default function App() {
           </Routes>
         </Container>
       </Box>
-    </Router>
+    </BrowserRouter>
   );
 }
