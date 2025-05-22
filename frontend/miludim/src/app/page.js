@@ -166,7 +166,7 @@ function VideoPlayer() {
         Back
       </Button>
       <Typography variant="h5">{video.name}</Typography>
-      <VideoComponent />
+      <VideoComponent onVideoTimeUpdate={setCurrentVideoTime}/>
       <PositionedMenu />
       <Transcript />
     </Box>
