@@ -42,5 +42,5 @@ export function VideoPlayer(props) {
   if (isLoading) return <p>Loading video...</p>;
   if (error) return <p>{error}</p>;
 
-  return <video controls width="600" src={videoSrc} onTimeUpdate={(e) => {onTimeUpdate(e.target.currentTime); console.log(e.target.currentTime);}}></video>;
+  return <video controls width="100%" src={videoSrc} onTimeUpdate={(e) => {onTimeUpdate(e.target.currentTime); console.log(e.target.currentTime);}}></video>;
 }
