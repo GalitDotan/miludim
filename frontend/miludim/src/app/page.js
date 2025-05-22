@@ -19,9 +19,11 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
+import Image from "next/image";
+import styles from "./page.module.css";
+import { VideoComponent } from '@/components/Video';
 import PositionedMenu from "../components/menu.js";
 import Transcript from "../components/transcript.js";
-
 
 function Home() {
   return <Typography variant="h4">Home</Typography>;
@@ -144,6 +146,7 @@ function Videos() {
 function VideoPlayer() {
   const { videoId } = useParams();
   const [video, setVideo] = useState(null);
+  const [currentVideoTime, setCurrentVideoTime] = useState(-1);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -163,10 +166,7 @@ function VideoPlayer() {
         Back
       </Button>
       <Typography variant="h5">{video.name}</Typography>
-      {/* <video controls width="100%"> */}
-      {/* <source src={video.url} type="video/mp4" /> */}
-      Your browser does not support the video tag.
-      {/* </video> */}
+      <VideoComponent />
       <PositionedMenu />
       <Transcript />
     </Box>
