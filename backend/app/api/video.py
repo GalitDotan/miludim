@@ -12,18 +12,21 @@ from data.mock_data import mock_videos, mock_lectures
 class Video(BaseModel):
     id: UUID
     name: str
+    description: str
     filename: str
 
 
 class VideoInfo(BaseModel):
     id: UUID
     name: str
+    description: str
 
     @classmethod
     def from_data(cls, id, data):
         return VideoInfo(
             id=id,
             name=data["name"],
+            description=data["description"],
         )
 
 
@@ -58,6 +61,7 @@ def get_video_info(video_id: UUID):
     return VideoInfo(
         id=video_id,
         name=video_data["name"],
+        description=video_data["description"],
     )
 
 

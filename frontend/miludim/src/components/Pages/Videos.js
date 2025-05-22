@@ -8,15 +8,19 @@ import {
   ListItemIcon,
   ListItemButton,
   Button,
-  Box
+  Box,
+  Slide,
+  Paper
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import InfoIcon from '@mui/icons-material/Info';
 import axios from 'axios';
 
 export default function Videos() {
   const { lectureId } = useParams();
   const [videos, setVideos] = useState([]);
   const [watchedStatus, setWatchedStatus] = useState({});
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,6 +61,11 @@ export default function Videos() {
       });
   }, [lectureId]);
 
+  const handleDescriptionClick = (video) => {
+    console.log(video);
+    setSelectedVideo(video);
+  };
+
   return (
     <Box>
       <Button variant="outlined" onClick={() => navigate(-1)} sx={{ mb: 2 }}>
@@ -67,9 +76,10 @@ export default function Videos() {
         {videos.map((video) => (
           <ListItem key={video.id} disablePadding>
             <ListItemButton onClick={() => navigate(`/videos/${video.id}`)}>
-              <ListItemText
-                primary={video.name}
-              />
+              <ListItemText primary={video.name} />
+              <Button onClick={(e) => { e.stopPropagation(); handleDescriptionClick(video); }}>
+                <InfoIcon />
+              </Button>
               {watchedStatus[video.id] && (
                 <ListItemIcon sx={{ minWidth: 'unset', marginLeft: 1 }}>
                   <CheckCircleIcon color="success" />
@@ -79,6 +89,14 @@ export default function Videos() {
           </ListItem>
         ))}
       </List>
+
+      <Slide direction="up" in={!!selectedVideo} mountOnEnter unmountOnExit>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, p: 2, bgcolor: 'background.paper', borderTop: 1, borderColor: 'divider' }}>
+          <Typography variant="h6">Description</Typography>
+          <Typography variant="body1">{selectedVideo?.description}</Typography>
+          <Button onClick={() => setSelectedVideo(null)} sx={{ mt: 1 }}>Close</Button>
+        </Paper>
+      </Slide>
     </Box>
   );
 }

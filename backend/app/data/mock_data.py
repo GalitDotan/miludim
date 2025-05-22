@@ -45,22 +45,27 @@ mock_lectures = {
 mock_videos = {
     "aac32dfa-d5f5-4e32-8683-01a8659e4f63": {
         "name": "Part 4",
+        "description": "More money 4",
         "filename": "mock/3945008-uhd_3840_2160_30fps.mp4",
     },
     "42940327-970d-4d7b-b154-12f54f941a6b": {
         "name": "Part 1",
+        "description": "More money 1",
         "filename": "mock/1797247-uhd_3840_2160_24fps.mp4",
     },
     "4c65cb3c-fc52-4aee-8847-fbd231d6fe26": {
         "name": "Part 2",
+        "description": "More money 2",
         "filename": "mock/1797251-uhd_3840_2160_24fps.mp4",
     },
     "9a8db790-8690-4e49-8c84-c70ac399b423": {
         "name": "CS 101",
+        "description": "More money 3",
         "filename": "mock/3141210-uhd_3840_2160_25fps.mp4",
     },
     "147df858-8116-4de6-81cb-9740bb32a62b": {
         "name": "Part 3",
+        "description": "More money",
         "filename": "mock/6942709-hd_1920_1080_25fps.mp4",
     },
 }
@@ -79,7 +84,7 @@ mock_users = {
                             },
                             "4c65cb3c-fc52-4aee-8847-fbd231d6fe26": {
                                 "stopped_time": 5,
-                                "watched": True,
+                                "watched": False,
                             },
                         }
                     }
