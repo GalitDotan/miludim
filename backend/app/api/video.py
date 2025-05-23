@@ -85,7 +85,8 @@ def get_video_download(video_id: UUID):
 
 @videos.get("/{video_id}/summary")
 def get_video_summary(video_id: UUID):
-    return "summary of the video"
+    file_path = os.path.join(get_resources_dir_path(), 'Calculus2_09_summary.md')
+    return FileResponse(file_path, media_type="text/markdown")
 
 
 @videos.get("/{video_id}/slides")
@@ -95,4 +96,5 @@ def get_video_slides(video_id: UUID):
 
 @videos.get("/{video_id}/questions")
 def get_video_questions(video_id: UUID):
-    return "questions about the video"
+    file_path = os.path.join(get_resources_dir_path(), 'Calculus2_09_questions.md')
+    return FileResponse(file_path, media_type="text/markdown")

@@ -20,13 +20,6 @@ export default function PositionedMenu() {
     setAnchorEl(null);
   };
 
-  const getSummary = () => {
-    axios
-      .get(`http://127.0.0.1:8000/videos/${videoId}/summary`)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.error("Error:", error));
-  };
-
   const getSlides = () => {
     axios
       .get(`http://127.0.0.1:8000/videos/${videoId}/slides`)
@@ -41,13 +34,13 @@ export default function PositionedMenu() {
       .catch((error) => console.error("Error:", error));
   };
 
-  const getQuestions = () => {
-    axios
-      .get(`http://127.0.0.1:8000/videos/${videoId}/questions`)
-      .then((response) => console.log(response.data))
-      .then(console.log(videoId))
-      .catch((error) => console.error("Error:", error));
-  };
+const getSummary = () => {
+  window.open(`http://127.0.0.1:8000/videos/${videoId}/summary`, '_blank');
+};
+
+const getQuestions = () => {
+  window.open(`http://127.0.0.1:8000/videos/${videoId}/questions`, '_blank');
+};
 
   return (
     <div>
