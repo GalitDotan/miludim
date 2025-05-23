@@ -4,7 +4,6 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import { BlockMath } from 'react-katex';
 
 function prettifyText(text) {
   const superscriptMap = {
