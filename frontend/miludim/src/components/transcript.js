@@ -4,7 +4,6 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 
 function prettifyText(text) {
@@ -34,7 +33,7 @@ function prettifyText(text) {
 
 function parseSRT(data) {
   const lines = data.split('\n');
-const result = [];
+  const result = [];
   let i = 0;
 
   function timeToSeconds(timeStr) {
@@ -47,7 +46,7 @@ const result = [];
       parseInt(ms, 10) / 1000
     );
   }
-  
+
 
   while (i < lines.length) {
     const indexLine = lines[i++].trim();
