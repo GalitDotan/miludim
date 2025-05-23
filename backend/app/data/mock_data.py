@@ -65,7 +65,7 @@ mock_videos = {
     },
     "147df858-8116-4de6-81cb-9740bb32a62b": {
         "name": "Part 3",
-        "description": "More money",
+        "description": "money, money, money, money, money, money, money, money, money, money, money, money, money, money, money",
         "filename": "mock/6942709-hd_1920_1080_25fps.mp4",
     },
 }

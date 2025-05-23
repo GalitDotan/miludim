@@ -28,13 +28,15 @@ export default function VideoPlayer() {
 
   if (!video) return <Typography>Loading...</Typography>;
 
+  const props = {onVideoTimeUpdate: setCurrentVideoTime, videoInfo: video.description};
+
   return (
     <Box>
       <Button variant="outlined" onClick={() => navigate(-1)} sx={{ mb: 2 }}>
         Back
       </Button>
       <Typography variant="h5">{video.name}</Typography>
-      <VideoComponent onVideoTimeUpdate={setCurrentVideoTime}/>
+      <VideoComponent {...props}/>
       <PositionedMenu />
       <Transcript videoTime={currentVideoTime}/>
     </Box>

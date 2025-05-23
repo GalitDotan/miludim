@@ -16,7 +16,7 @@ function fetchVideo(video_id) {
 }
 
 export function VideoPlayer(props) {
-    const onTimeUpdate = props.onVideoTimeUpdate
+    const onTimeUpdate = props.onVideoTimeUpdate;
 
   const [videoSrc, setVideoSrc] = useState(null);
   const [error, setError] = useState(null);
